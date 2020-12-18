@@ -1,0 +1,76 @@
+div#acctsett,div#staffsett,div#staffsett,div#actlog,button#acctsett,button#staffsett,button#studsett,button#actlog{
+	display: none
+}
+i.fa-chevron-left{
+	visibility: hidden
+}
+body{
+	background: #E0E0E0;
+}
+button.tabbtn{
+	border-radius: 0;
+}
+.fa-chevron-left,.fa-chevron-right{
+	color: #00695C;
+	font-size: 20px;
+	cursor: pointer;
+	margin: auto;
+}
+.gensett,.acctsett,.staffsett,.studsett,.btnaction,.table-responsive{
+	padding: 10px;
+	background-color: white;
+}
+form{
+	margin: auto;
+}
+label{
+	color: black;
+}
+input.form-control:focus{
+	border-color: #00695C;
+	box-shadow: none;
+}
+button.close{
+	outline: none;
+	color: white;
+}
+button.close:hover{
+	font-weight: bolder;
+	color: red;
+}
+button.delfavicon,button.dellogo:hover{
+	transform: scale(1.2);
+	cursor: pointer;
+	transition: transform .2s;
+}
+div.no{
+	width: 40px
+}
+div.dept{
+	width: 120px;
+}
+div.ac{
+	width: 70px;
+}
+div.time{
+	width: 50px
+}
+table.table tr th i{
+	color: white;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+table.table tr th i:hover{
+	transform: scale(1.2);
+	cursor: pointer;
+	transition: transform .3s;
+	font-weight: bolder;
+}
+@media only screen and (max-width: 340px) {
+	div.btnaction{
+		display: flex;
+		flex-direction: column;
+	}
+}

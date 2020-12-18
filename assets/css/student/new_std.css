@@ -1,0 +1,62 @@
+body{
+	background-color: #E0E0E0;
+}
+.indexpagebody{
+	background-color: white;
+	padding: 10px;
+}
+button:focus,select.form-control:focus{
+	border-color: #00695C;
+	box-shadow: none;
+}
+ul.nav_tabs{
+	list-style-type: none;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+}
+li.nav_tabs_list{
+	padding: 10px 0;
+}
+li a.nav_tabs_link{
+	color: black;
+	text-decoration: none;
+	font-size: 17px;
+}
+li a.profile_tab{                          
+	border-bottom: 2px solid black;
+}                       
+i.fa-eye,i.fa-eye-slash{
+	display: none;                          ;
+	cursor: pointer;
+	font-size: 16px;
+}
+label{
+	color: black;
+}
+h4{
+	text-align: center;
+	font-weight: bolder;
+}
+div.branch_div{
+	display: none;
+}
+span.red_star{
+	color: red;
+	font-weight: bolder;
+}
+i.fa-sort-amount-down{
+	cursor: pointer;
+	transform: scale(1.2);
+	transition: .3s;
+}
+button.gen_pwd{
+	border: 1px solid#00695C;
+}
+button.gen_pwd:hover{
+	background-color: #00695C;
+	color: white;
+}
+@media only screen and (max-width: 404px) {
+
+}

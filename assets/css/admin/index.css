@@ -1,0 +1,38 @@
+body{
+	background-color: #E0E0E0;
+}
+.container,.container-fluid{
+	margin: auto;
+}
+.row{
+	background-color: white;
+}
+label{
+	color: black;
+}
+h4{
+	color: black;
+}
+h4{
+	text-align: center;
+	font-weight: bolder;
+}
+label{
+	font-weight: bolder;
+}
+div.staffact,div.adminact,div.studentact{
+	overflow-y: scroll;
+	height: 300px;
+}
+div.staffact::-webkit-scrollbar,div.adminact::-webkit-scrollbar,div.studentact::-webkit-scrollbar{
+  width: 5px;
+}
+div.staffact::-webkit-scrollbar-thumb,div.adminact::-webkit-scrollbar-thumb,div.studentact::-webkit-scrollbar-thumb{
+  background: #00695C;
+  border-radius: 30px;
+}
+@media only screen and (max-width: 767px) {
+	div.staff{
+	border: none;
+	}
+}

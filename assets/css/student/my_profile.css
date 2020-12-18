@@ -1,0 +1,86 @@
+body{
+	background-color: #E0E0E0;
+}
+input.form-control:focus,select.form-control:focus,textarea.form-control:focus{
+	border-color: black;
+	box-shadow: none;
+}
+.con{
+	background-color: white;
+	padding: 10px;
+}
+div.col{
+	padding: 15px;
+}
+.con_left{
+	margin-right: 10px;
+}
+.con_right{
+	margin-left: 10px;
+}
+div.prof_img_div img{
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+}
+i.fa-edit{
+	cursor: pointer;
+	color: black;
+}
+label{
+	font-weight: bold;
+}
+span.col{
+	font-weight: bolder;
+	white-space: nowrap;
+}
+i.fab{
+	font-size: 15px;
+}
+.fa-github{
+	background-color: white;
+}
+.fa-facebook{
+	background-color: white;
+	color: #3b5998;
+}
+.fa-instagram{
+	background-color: white;
+	color: #f56040;
+}
+.fa-twitter{
+	background-color: white;
+	color: #1da1f2;
+}
+.fa-linkedin{
+	background-color: white;
+	color: #0077b5;
+}
+.fa-google-plus-g{
+	background-color: white;
+	color: #dd4b39;
+}
+a{
+	color: black;
+}
+a:hover{
+	text-decoration: none;
+	color: black;
+}
+div.con_right div.form-group{
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+}
+@media only screen and (max-width: 991px) {
+	div.con_both{
+		display: flex;
+		flex-direction: column;
+	}
+	div.con_left{
+		margin: 0 0 0 0;
+	}
+	div.con_right{
+		margin: 20px 0 0 0;
+	}
+}

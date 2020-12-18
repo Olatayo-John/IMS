@@ -1,0 +1,31 @@
+body{
+	background-color: #E0E0E0;
+}
+div.adlogin_con{
+	margin-top: 90px;
+}
+label{
+	font-weight: bolder;
+	color: black;
+}
+input.form-control{
+	border-radius: 40px;
+}
+input.form-control:focus{
+	border-color: black;
+	box-shadow: none;
+}
+div span.err{
+	font-weight: bolder;
+}
+button.loginbtn{
+	border-radius: 0;
+}
+a.fp_link{
+	text-decoration: none;
+	font-weight: bolder;
+}
+.stf_login:hover,.std_login:hover{
+	transform: scale(1.1);
+	transition: transform .3s;
+}

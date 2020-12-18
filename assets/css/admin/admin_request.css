@@ -1,0 +1,27 @@
+body{
+	background: #141E30;
+	background: -webkit-linear-gradient(to right, #243B55, #141E30);
+	background: linear-gradient(to right, #243B55, #141E30);
+}
+div.link_tab{
+	/*border: 1px solid red;*/
+}
+div.msg_tab{
+	/*border: 1px solid green;*/
+}
+textarea.form-control:focus{
+	border-color: black;
+	box-shadow: none;
+}
+div.subbtn{
+	text-align: center;
+	width: 50%;
+}
+@media only screen and (max-width: 767px) {
+	div.link_tab{
+	margin-bottom: 20px;
+	}
+	div.msg_tab{
+	margin-top: 20px;
+	}
+}

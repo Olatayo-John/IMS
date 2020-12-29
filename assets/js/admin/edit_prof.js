@@ -87,7 +87,7 @@ $(document).ready(function () {
 		if (n_pwd == "" || n_pwd == null) {
 			$('.n_pwd').css('border', '2px solid red');
 			return false;
-		}if (n_pwd.length < 7) {
+		} if (n_pwd.length < 7) {
 			$('.n_pwd').css('border', '2px solid red');
 			$('span.n_pwd_err').show();
 			return false;
@@ -98,7 +98,7 @@ $(document).ready(function () {
 		if (rtn_pwd == "" || rtn_pwd == null) {
 			$('.rtn_pwd').css('border', '2px solid red');
 			return false;
-		}if (n_pwd !== rtn_pwd) {
+		} if (n_pwd !== rtn_pwd) {
 			$('.rtn_pwd').css('border', '2px solid red');
 			$('span.rtn_pwd_err').show();
 			return false;

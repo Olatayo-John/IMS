@@ -154,6 +154,58 @@ class Student extends CI_Controller
 		}
 	}
 
+	public function modal_login()
+	{
+		if ($this->session->userdata('ims_logged_in')) {
+			$data['token'] = $this->security->get_csrf_hash();
+			echo json_encode($data);
+			exit;
+		}
+		$data['db_req'] = $this->Studentmodel->login($_POST['uname'], $_POST['pwd']);
+		if ($data['db_req'] == false) {
+			$uname = $_POST['uname'];
+			$department = 'Student';
+			$action = "Failed login attempt by " . $uname . ". Invalid Username/Password";
+			$this->Studentmodel->log_activity($department, $action);
+		} else if ($data['db_req'] == 'inactive') {
+			$uname = $_POST['uname'];
+			$department = 'Student';
+			$action = "Failed login attempt by " . $uname . ". Account is Inactive";
+			$this->Studentmodel->log_activity($department, $action);
+		} else if ($data['db_req'] !== false || $data['db_req'] !== 'inactive') {
+			$id = $data['db_req']->id;
+			$uname = $data['db_req']->uname;
+			$fname = $data['db_req']->fname;
+			$lname = $data['db_req']->lname;
+			$email = $data['db_req']->email;
+			$active = $data['db_req']->active;
+			$role = $data['db_req']->role;
+			$profile_img = $data['db_req']->profile_img;
+
+			$admin_ses = array(
+				'ims_id' => $id,
+				'ims_uname' => $uname,
+				'ims_fname' => $fname,
+				'ims_lname' => $lname,
+				'ims_email' => $email,
+				'ims_profile_img' => $profile_img,
+				'ims_active' => $active,
+				'ims_role' => $role,
+				'ims_logged_in' => TRUE,
+			);
+
+			$uname = $_POST['uname'];
+			$department = 'Student';
+			$action = "Successfull login by " . $uname;
+			$this->Studentmodel->log_activity($department, $action);
+			$this->session->set_userdata($admin_ses);
+			$this->session->set_flashdata('valid_login', 'Welcome ' . $fname . " " . $lname);
+		}
+		$data['redirect_url'] = base_url('admin');
+		$data['token'] = $this->security->get_csrf_hash();
+		echo json_encode($data);
+	}
+
 	public function logout()
 	{
 		$uname = $this->session->userdata('ims_uname');
@@ -621,7 +673,6 @@ class Student extends CI_Controller
 		if ($res == true) {
 			// $this->session->set_flashdata('std_stat_succ', 'Student status updated');
 			$data = $this->security->get_csrf_hash();
-			echo json_encode($data);
 		} else {
 			$this->session->set_flashdata('std_stat_err', 'Failed to update student status');
 		}
@@ -695,6 +746,30 @@ class Student extends CI_Controller
 		} else {
 			$this->session->set_flashdata('std_del_err', 'Failed to deleted data');
 		}
+	}
+
+	public function chkbox_delete_student()
+	{
+		if (!$this->session->userdata('ims_logged_in')) {
+			$department = 'Student';
+			$action = "Not logged in. Access:Delete Multiple Student";
+			$this->Studentmodel->log_activity($department, $action);
+			$this->session->set_flashdata('login_first', 'Please login first');
+		}
+		if ($this->session->userdata('ims_role') == "Student") {
+			$uname = $this->session->userdata('ims_uname');
+			$department = 'Student';
+			$action = "Unauthorized Access by " . $uname . ". Access:Delete Multiple Student";
+			$this->Studentmodel->log_activity($department, $action);
+			$this->session->set_flashdata('acc_denied', 'Access Denied');
+		}
+		$res = $this->Studentmodel->chkbox_delete_student($_POST['filter']);
+		echo json_encode($res);
+		// if ($res == true) {
+		// 	$this->session->set_flashdata('std_del_succ', 'Student data deleted');
+		// } else {
+		// 	$this->session->set_flashdata('std_del_err', 'Failed to deleted data');
+		// }
 	}
 
 	public function new()
@@ -1085,7 +1160,7 @@ class Student extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$this->edit();
 		} else {
-			$pwd_res= $this->Studentmodel->check_pwd();
+			$pwd_res = $this->Studentmodel->check_pwd();
 			if ($pwd_res == false) {
 				$uname = $this->session->userdata('ims_uname');
 				$department = 'Student';
@@ -1123,7 +1198,7 @@ class Student extends CI_Controller
 			$this->session->set_flashdata('acc_denied', 'Access Denied');
 			redirect($_SERVER['HTTP_REFERER']);
 		}
-		$act_res= $this->Studentmodel->deact_account();
+		$act_res = $this->Studentmodel->deact_account();
 		if ($act_res == false) {
 			$this->session->set_flashdata('deact_account_err', 'Error performing this operation');
 		}

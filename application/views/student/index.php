@@ -1,99 +1,99 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/css/student/index.css'); ?>">
 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name() ?>" value="<?php echo $this->security->get_csrf_hash() ?>" class="csrf_token">
 
-<div class="ml-3 mr-3 pt-3 pb-3 row new_srch_std">
+<div class="ml-3 mr-3 mt-3 pt-3 pb-3 pr-3 row new_srch_std">
 	<div class="col">
 		<a href="<?php echo base_url('student/new'); ?>" class="btn text-light" style="background-color: #00695C">
 			<i class="fas fa-plus-circle mr-2"></i>New Student</a>
+	</div>
+	<div class="ml-auto col d-flex flex-row" style="border-bottom: 1px solid #00695C">
+		<span class="" style="display: inline-flex;"><i class="fas fa-search"></i></span>
+		<input type="text" name="search_std" class="search_std form-control" id="search_std" placeholder="Search...">
+	</div>
+</div>
+
+<div class="pt-3 pb-3 mr-3 ml-3 mt-3 mb-3 filterdiv">
+	<div class="d-flex flex-row">
+		<div class="">
+			<label class="text-dark text-left font-weight-bolder pl-3 mr-2">Filter by</label>
 		</div>
-		<div class="ml-auto col d-flex flex-row" style="border-bottom: 1px solid #00695C">
-			<span class="" style="display: inline-flex;"><i class="fas fa-search"></i></span>
-			<input type="text" name="search_std" class="search_std form-control" id="search_std" placeholder="Search...">
+		<div class="filter_text">
+			<span class="course_ftr_text text-info mr-1"></span><i class="fas fa-minus-circle text-danger course_ftr_i mr-2"></i>
+			<span class="branch_ftr_text text-info mr-1"></span><i class="fas fa-minus-circle text-danger branch_ftr_i mr-2"></i>
+			<span class="year_ftr_text text-info"></span><sup class="text-lowercase year_ftr_i text-info mr-1"></sup><i class="fas fa-minus-circle text-danger year_ftr_i"></i>
 		</div>
 	</div>
 
-	<div class="pt-3 pb-3 mr-3 ml-3 mt-3 mb-3 filterdiv">
-		<div class="d-flex flex-row">
-			<div class="">
-				<label class="text-dark text-left font-weight-bolder pl-3 mr-2">Filter by</label>
-			</div>
-			<div class="filter_text">
-				<span class="course_ftr_text text-info mr-1"></span><i class="fas fa-minus-circle text-danger course_ftr_i mr-2"></i>
-				<span class="branch_ftr_text text-info mr-1"></span><i class="fas fa-minus-circle text-danger branch_ftr_i mr-2"></i>
-				<span class="year_ftr_text text-info"></span><sup class="text-lowercase year_ftr_i text-info mr-1"></sup><i class="fas fa-minus-circle text-danger year_ftr_i"></i>
-			</div>
-		</div>
-
-		<div class="row" style="margin:0">
-			<div class="col course_div">
-				<input type="text" name="course_ftr_inp" data-toggle="dropdown" placeholder="Course" class="form-control course_ftr_inp" readonly>
-				<div class="dropdown-menu dropdown-menu-left">
-					<?php if ($course->num_rows() == "0") : ?>
-						<p class="text_tran font-weight-bolder mb-0 text-dark">no data found</p>
-					<?php endif; ?>
-					<?php if ($course->num_rows() > "0") : ?>
-						<?php foreach ($course->result_array() as $crs) : ?>
-							<p class="text-center text_tran course_list" style="cursor: pointer" course="<?php echo $crs['name'] ?>"><?php echo $crs['name'] ?></p>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</div>
-			</div>
-			<div class="col dropdown branch_div">
-				<input type="text" name="brnch_ftr_inp" data-toggle="dropdown" placeholder="Branch" class="form-control brnch_ftr_inp" readonly>
-				<div class="dropdown-menu">
-					<?php if ($branches->num_rows() == "0") : ?>
-						<p class="text_tran font-weight-bolder mb-0 text-dark">no data found</p>
-					<?php endif; ?>
-					<?php if ($branches->num_rows() > "0") : ?>
-						<?php foreach ($branches->result_array() as $brnc) : ?>
-							<p class="text-center text_tran branch_list" style="cursor: pointer" branch="<?php echo $brnc['name'] ?>"><?php echo $brnc['name'] ?></p>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</div>
-			</div>
-			<div class="col year_div">
-				<input type="text" name="year_ftr_inp" data-toggle="dropdown" placeholder="Current Course Year" class="form-control year_ftr_inp" readonly>
-				<div class="dropdown-menu">
-					<?php if ($years->num_rows() == "0") : ?>
-						<p class="text_tran font-weight-bolder mb-0 text-dark">no data found</p>
-					<?php endif; ?>
-					<?php if ($years->num_rows() > "0") : ?>
-						<?php foreach ($years->result_array() as $year) : ?>
-							<?php if ($year['current_course_year'] == "1") : ?>
-								<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">st</sup></p>
-							<?php endif; ?>
-							<?php if ($year['current_course_year'] == "2") : ?>
-								<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">nd</sup></p>
-							<?php endif; ?>
-							<?php if ($year['current_course_year'] == "3") : ?>
-								<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">rd</sup></p>
-							<?php endif; ?>
-							<?php if ($year['current_course_year'] == "4") : ?>
-								<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">th</sup></p>
-							<?php endif; ?>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</div>
+	<div class="row" style="margin:0">
+		<div class="col course_div">
+			<input type="text" name="course_ftr_inp" data-toggle="dropdown" placeholder="Course" class="form-control course_ftr_inp" readonly>
+			<div class="dropdown-menu dropdown-menu-left">
+				<?php if ($course->num_rows() == "0") : ?>
+					<p class="text_tran font-weight-bolder mb-0 text-dark">no data found</p>
+				<?php endif; ?>
+				<?php if ($course->num_rows() > "0") : ?>
+					<?php foreach ($course->result_array() as $crs) : ?>
+						<p class="text-center text_tran course_list" style="cursor: pointer" course="<?php echo $crs['name'] ?>"><?php echo $crs['name'] ?></p>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
-	</div>
-
-	<div class="row pt-3 pb-3 pl-3">
-		<div class="col">
-			<button class="btn text-light refresh_table_btn" style="background-color: #00695C">
-				<i class="fas fa-sync"></i>
-			</button>
-			<a href="<?php echo base_url('student/export_std_csv'); ?>" class="btn text-light export_std_csv mr-0 tran" style="background-color: #00695C">Export</a>
-			<button class="btn text-light dropdown-toggle ml-0 bact_btn tran" data-toggle="dropdown" style="background-color: #00695C">bulk actions</button>
+		<div class="col dropdown branch_div">
+			<input type="text" name="brnch_ftr_inp" data-toggle="dropdown" placeholder="Branch" class="form-control brnch_ftr_inp" readonly>
 			<div class="dropdown-menu">
-				<button class="dropdown-item text-dark btn btn-light blk_act_csv">
-					<i class="fas fa-file-csv mr-2"></i>CSV
-				</button>
-				<button class="dropdown-item text-danger btn btn-light blk_act_del">
-					<i class="fas fa-trash-alt mr-2"></i>Delete
-				</button>
+				<?php if ($branches->num_rows() == "0") : ?>
+					<p class="text_tran font-weight-bolder mb-0 text-dark">no data found</p>
+				<?php endif; ?>
+				<?php if ($branches->num_rows() > "0") : ?>
+					<?php foreach ($branches->result_array() as $brnc) : ?>
+						<p class="text-center text_tran branch_list" style="cursor: pointer" branch="<?php echo $brnc['name'] ?>"><?php echo $brnc['name'] ?></p>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
+		<div class="col year_div">
+			<input type="text" name="year_ftr_inp" data-toggle="dropdown" placeholder="Current Course Year" class="form-control year_ftr_inp" readonly>
+			<div class="dropdown-menu">
+				<?php if ($years->num_rows() == "0") : ?>
+					<p class="text_tran font-weight-bolder mb-0 text-dark">no data found</p>
+				<?php endif; ?>
+				<?php if ($years->num_rows() > "0") : ?>
+					<?php foreach ($years->result_array() as $year) : ?>
+						<?php if ($year['current_course_year'] == "1") : ?>
+							<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">st</sup></p>
+						<?php endif; ?>
+						<?php if ($year['current_course_year'] == "2") : ?>
+							<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">nd</sup></p>
+						<?php endif; ?>
+						<?php if ($year['current_course_year'] == "3") : ?>
+							<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">rd</sup></p>
+						<?php endif; ?>
+						<?php if ($year['current_course_year'] == "4") : ?>
+							<p class="text-center year_list" style="cursor: pointer" year="<?php echo $year['current_course_year'] ?>"><?php echo $year['current_course_year'] ?><sup class="text-lowercase">th</sup></p>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row pt-3 pb-3 pl-3">
+	<div class="col">
+		<button class="btn text-light refresh_table_btn" style="background-color: #00695C">
+			<i class="fas fa-sync"></i>
+		</button>
+		<a href="<?php echo base_url('student/export_std_csv'); ?>" class="btn text-light export_std_csv mr-0 tran" style="background-color: #00695C">Export</a>
+		<button class="btn text-light dropdown-toggle ml-0 bact_btn tran" data-toggle="dropdown" style="background-color: #00695C">bulk actions</button>
+		<div class="dropdown-menu">
+			<button class="dropdown-item text-dark btn btn-light blk_act_csv">
+				<i class="fas fa-file-csv mr-2"></i>CSV Export
+			</button>
+			<button class="dropdown-item text-danger btn btn-light blk_act_del">
+				<i class="fas fa-trash-alt mr-2"></i>Delete
+			</button>
+		</div>
+	</div>
 	<!-- to be able to choose table row to show
 		<div class="col mt-3">
 			<select class="form-control">
@@ -107,49 +107,49 @@
 				<?php endif; ?>
 			</select>
 		</div> -->
-	</div>
+</div>
 
 
-	<div class="table-responsive std_table_div pr-3 pl-3">
-		<table class="table table-light std_table table-sm">
-			<thead class="text-light" style="background-color: #00695C">
-				<tr>
-					<th>
-						<input type="checkbox" name="chk_allbox" id="chk_allbox" class="chk_allbox">
-					</th>
-					<th>
-						<div class="fn">First Name<i class="fas fa-sort-amount-down" param="asc" name="fname"></i></div>
-					</th>
-					<th>
-						<div class="fn">Last Name<i class="fas fa-sort-amount-down" param="asc" name="lname"></i></div>
-					</th>
-					<th>
-						<div class="fn">Course<i class="fas fa-sort-amount-down" param="asc" name="course"></i></div>
-					</th>
-					<th>
-						<div class="fn">Email<i class="fas fa-sort-amount-down" param="asc" name="email"></i></div>
-					</th>
-					<th>
-						<div class="fn">Mobile<i class="fas fa-sort-amount-down" param="asc" name="mobile"></i></div>
-					</th>
-					<th>
-						<div class="fn">Status<i class="fas fa-sort-amount-down" param="asc" name="active"></i></div>
-					</th>
-				</tr>
-			</thead>
+<div class="table-responsive std_table_div pr-3 pl-3">
+	<table class="table table-light std_table table-sm table-bordered">
+		<thead class="text-light" style="background-color: #00695C">
+			<tr>
+				<th>
+					<input type="checkbox" name="chk_allbox" id="chk_allbox" class="chk_allbox">
+				</th>
+				<th>
+					<div class="fn">First Name<i class="fas fa-sort-amount-down" param="asc" name="fname"></i></div>
+				</th>
+				<th>
+					<div class="fn">Last Name<i class="fas fa-sort-amount-down" param="asc" name="lname"></i></div>
+				</th>
+				<th>
+					<div class="fn">Course<i class="fas fa-sort-amount-down" param="asc" name="course"></i></div>
+				</th>
+				<th>
+					<div class="fn">Email<i class="fas fa-sort-amount-down" param="asc" name="email"></i></div>
+				</th>
+				<th>
+					<div class="fn">Mobile<i class="fas fa-sort-amount-down" param="asc" name="mobile"></i></div>
+				</th>
+				<th>
+					<div class="fn">Status<i class="fas fa-sort-amount-down" param="asc" name="active"></i></div>
+				</th>
+			</tr>
+		</thead>
 
-			<?php if ($students->num_rows() == '0') : ?>
-				<tr class="text-dark">
-					<td colspan='7' class='font-weight-bolder text-center text-uppercase'>No data found</td>
-				</tr>
-			<?php endif; ?>
+		<?php if ($students->num_rows() == '0') : ?>
+			<tr class="text-dark">
+				<td colspan='7' class='font-weight-bolder text-center text-uppercase'>No data found</td>
+			</tr>
+		<?php endif; ?>
 
-			<?php foreach ($students->result_array() as $std) : ?>
-				<tr id="<?php echo $std['id'] ?>">
-					<td>
-						<input type="checkbox" name="chk_onebox" id="chk_onebox" class="chk_onebox">
-					</td>
-					<td><?php echo $std['fname'] ?>
+		<?php foreach ($students->result_array() as $std) : ?>
+			<tr id="<?php echo $std['id'] ?>">
+				<td>
+					<input type="checkbox" name="chk_onebox" id="chk_onebox" class="chk_onebox" data_id="<?php echo $std['id'] ?>">
+				</td>
+				<td><?php echo $std['fname'] ?>
 					<div class="<?php echo $std['id'] ?> action_div">
 						<small>
 							<a href="" class="text-info action_div_a view_std" id="<?php echo $std['id'] ?>">View</a>
@@ -416,7 +416,6 @@
 						$('i#' + id + '.fas').removeClass('text-success').addClass('text-danger');
 						$('i#' + id + '.fas').attr('status', '1');
 						$('.csrf_token').val(data);
-						console.log(data);
 					} else if (status == "1") {
 						$('i#' + id + '.fas').removeClass('fa-toggle-off').addClass('fa-toggle-on');
 						$('i#' + id + '.fas').removeClass('text-danger').addClass('text-success');
@@ -477,6 +476,49 @@
 				});
 			}
 		});
+
+		$(document).on('click', '.chk_allbox', function() {
+			var csrfName = $('.csrf_token').attr('name');
+			var csrfHash = $('.csrf_token').val();
+			var chk_all_box = $('.chk_allbox').prop('checked');
+
+			if (chk_all_box == true) {
+				$('.bact_btn').show();
+				$('.chk_onebox').prop('checked', 'true');
+
+				var filter = [];
+				$('.chk_onebox' + ':checked').each(function() {
+					filter.push($(this).attr('data_id'));
+				});
+				console.log(filter);
+				$.ajax({
+					url: "<?php echo base_url('student/chkbox_delete_student') ?>",
+					method: "post",
+					dataType: "json",
+					data: {
+						filter: filter,
+						[csrfName]: csrfHash
+					},
+					success: function(data) {
+						console.log(data);
+					},
+					error: function(data) {
+						alert('error');
+					}
+				});
+			} else if (chk_all_box == false) {
+				$('.bact_btn').hide();
+				$('.chk_onebox').removeAttr('checked');
+			}
+		});
+
+		function get_filter(class_name) {
+			var filter = [];
+			$('.' + class_name + ':checked').each(function() {
+				filter.push($(this).val());
+			});
+			return filter;
+		}
 
 	});
 </script>

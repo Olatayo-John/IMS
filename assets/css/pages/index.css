@@ -5,3 +5,19 @@ div.indexbody{
 	padding: 10px;
 	background-color: white;
 }
+.adm_div{
+    top: 50px;
+}
+.modal-content{
+	padding: 10px;
+}
+span.close_x{
+	display: flex;
+    justify-content: center;
+}
+.fa-times{
+	cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 10px;
+	color: #00695C;
+}

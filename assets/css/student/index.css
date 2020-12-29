@@ -49,7 +49,7 @@ button.tran{
 	display: none;
 }
 thead{
-	text-align: center;
+	/* text-align: center; */
 }
 div.fn{
 	width: 115px;

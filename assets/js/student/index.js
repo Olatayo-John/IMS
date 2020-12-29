@@ -17,20 +17,6 @@ $(document).ready(function () {
 		});
 	});
 
-	$(document).on('click', '.chk_allbox', function () {
-		var csrfName = $('.csrf_token').attr('name');
-		var csrfHash = $('.csrf_token').val();
-		var chk_all_box = $('.chk_allbox').prop('checked');
-
-		if (chk_all_box == true) {
-			$('.bact_btn').show();
-			$('.chk_onebox').prop('checked', 'true');
-		} else if (chk_all_box == false) {
-			$('.bact_btn').hide();
-			$('.chk_onebox').removeAttr('checked');
-		}
-	});
-
 	$(document).on('click', 'i.course_ftr_i', function () {
 		$(".course_ftr_inp").val("");
 		$(".course_ftr_text, .course_ftr_i").hide();
@@ -49,13 +35,5 @@ $(document).ready(function () {
 		$(".year_ftr_inp").val("");
 		$(".year_ftr_text, .year_ftr_i").hide();
 	});
-
-	function get_filter(class_name) {
-		var filter = [];
-		$('.' + class_name + ':checked').each(function () {
-			filter.push($(this).val());
-		});
-		return filter;
-	}
 
 });

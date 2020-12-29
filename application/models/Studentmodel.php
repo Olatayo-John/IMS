@@ -141,6 +141,23 @@ class Studentmodel extends CI_Model
 		return true;
 	}
 
+	public function chkbox_delete_student($filter)
+	{
+		//$this->db->where('id', array($filter));
+		$this->db->where('id', $filter);
+		$this->db->delete('student');
+		return $this->db->last_query();
+		//$this->chkbox_delete_student_profile($id);
+		//return true;
+	}
+
+	public function chkbox_delete_student_profile($id)
+	{
+		$this->db->where('std_id', $id);
+		$this->db->delete('std_profile');
+		return true;
+	}
+
 	public function user_std_replies()
 	{
 		$this->db->order_by('id', 'DESC');
@@ -268,26 +285,26 @@ class Studentmodel extends CI_Model
 
 	public function check_pwd()
 	{
-		$c_pwd= $this->input->post('c_pwd');
-		$query= $this->db->get_where('student', array('id'=>$this->session->userdata('ims_id')))->row();
+		$c_pwd = $this->input->post('c_pwd');
+		$query = $this->db->get_where('student', array('id' => $this->session->userdata('ims_id')))->row();
 		if (!$query) {
-			return false; 
+			return false;
 			exit;
-		}else{
+		} else {
 			if (password_verify($c_pwd, $query->password)) {
 				$this->db->set('password', password_hash($c_pwd, PASSWORD_DEFAULT));
 				$this->db->where('id', $this->session->userdata('ims_id'));
 				$this->db->update('student');
 				return true;
-			}else{
+			} else {
 				return false;
 				exit;
 			}
-
 		}
 	}
 
-	public function deact_account(){
+	public function deact_account()
+	{
 		$this->db->set('active', '0');
 		$this->db->where('id', $this->session->userdata('ims_id'));
 		$this->db->update('student');

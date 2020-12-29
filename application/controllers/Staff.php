@@ -156,6 +156,58 @@ class Staff extends CI_Controller
 		}
 	}
 
+	public function modal_login()
+	{
+		if ($this->session->userdata('ims_logged_in')) {
+			$data['token'] = $this->security->get_csrf_hash();
+			echo json_encode($data);
+			exit;
+		}
+		$data['db_req'] = $this->Staffmodel->login($_POST['uname'], $_POST['pwd']);
+		if ($data['db_req'] == false) {
+			$uname = $_POST['uname'];
+			$department = 'Staff';
+			$action = "Failed login attempt by " . $uname . ". Invalid Username/Password";
+			$this->Staffmodel->log_activity($department, $action);
+		} else if ($data['db_req'] == 'inactive') {
+			$uname = $_POST['uname'];
+			$department = 'Staff';
+			$action = "Failed login attempt by " . $uname . ". Account is Inactive";
+			$this->Staffmodel->log_activity($department, $action);
+		} else if ($data['db_req'] !== false || $data['db_req'] !== 'inactive') {
+			$id = $data['db_req']->id;
+			$uname = $data['db_req']->uname;
+			$fname = $data['db_req']->fname;
+			$lname = $data['db_req']->lname;
+			$email = $data['db_req']->email;
+			$active = $data['db_req']->active;
+			$role = $data['db_req']->role;
+			$profile_img = $data['db_req']->profile_img;
+
+			$admin_ses = array(
+				'ims_id' => $id,
+				'ims_uname' => $uname,
+				'ims_fname' => $fname,
+				'ims_lname' => $lname,
+				'ims_email' => $email,
+				'ims_profile_img' => $profile_img,
+				'ims_active' => $active,
+				'ims_role' => $role,
+				'ims_logged_in' => TRUE,
+			);
+
+			$uname = $_POST['uname'];
+			$department = 'Admin';
+			$action = "Successfull login by " . $uname;
+			$this->Staffmodel->log_activity($department, $action);
+			$this->session->set_userdata($admin_ses);
+			$this->session->set_flashdata('valid_login', 'Welcome ' . $fname . " " . $lname);
+		}
+		$data['redirect_url'] = base_url('staff');
+		$data['token'] = $this->security->get_csrf_hash();
+		echo json_encode($data);
+	}
+
 	public function logout()
 	{
 		$uname = $this->session->userdata('ims_uname');
@@ -591,7 +643,7 @@ class Staff extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$this->edit();
 		} else {
-			$pwd_res= $this->Staffmodel->check_pwd();
+			$pwd_res = $this->Staffmodel->check_pwd();
 			if ($pwd_res == false) {
 				$uname = $this->session->userdata('ims_uname');
 				$department = 'Staff';
@@ -629,7 +681,7 @@ class Staff extends CI_Controller
 			$this->session->set_flashdata('acc_denied', 'Access Denied');
 			redirect($_SERVER['HTTP_REFERER']);
 		}
-		$act_res= $this->Staffmodel->deact_account();
+		$act_res = $this->Staffmodel->deact_account();
 		if ($act_res == false) {
 			$this->session->set_flashdata('deact_account_err', 'Error performing this operation');
 		}
